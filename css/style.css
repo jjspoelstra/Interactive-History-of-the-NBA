@@ -29,10 +29,12 @@ img {
 
 img:hover {
   height: 65px;
-  width: 65px;
+  width: fit-content;
 }
 
-
+.uta {
+  height: 50px
+}
 
 /* general bracket */
 
@@ -101,7 +103,7 @@ main {
 
 /* eastern conference */
 
-.westConference {
+.eastConference {
   display: flex;
   flex: 1;
   height: 800px;
@@ -124,48 +126,81 @@ main {
   height: 47%;
 }
 
+.matchup {
+  display: flex;
+  flex-direction: column;
+  transform: translate(50%, -30px);
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+}
 
+.matchupWest {
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -30px);
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+}
+
+.matchupSecond{
+  display: flex;
+  flex-direction: column;
+  transform: translate(50%, -13%);
+  justify-content: space-between;
+  align-items: center;
+  height: 235px;
+}
+
+.matchupSecondWest{
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -13%);
+  justify-content: space-between;
+  align-items: center;
+  height: 235px;
+}
+
+.matchupThird{
+  display: flex;
+  flex-direction: column;
+  transform: translate(50%, -7%);
+  justify-content: space-between;
+  align-items: center;
+  height: 430px;
+}
+
+.matchupThirdWest{
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -7%);
+  justify-content: space-between;
+  align-items: center;
+  height: 430px;
+}
+
+.westFinalist{
+  position: absolute;
+  transform: translate(-50%, 5%);
+}
+
+.eastFinalist{
+  position: absolute;
+  transform: translate(300%, 5%);
+}
+
+.champion{
+  transform: translateY(400%);
+}
 
 /* teams */
 
 
 /* First Round */
-.sunsFirstRound{
-  position: absolute;
-  left: 75px;
-  top: 50px;
-}
 
-.pelicansFirstRound{
-  position: absolute;
-  left: 60px;
-  top: 145px;
-  width:fit-content;
-}
 
-.mavsFirstRound{
-  position: absolute;
-  transform: translate(-30px, -30px);
-}
 
-.jazzFirstRound{
-  position: absolute;
-  height: 44px;
-  width: 100px;
-  transform: translate(-55px, 65px);
-}
-
-.jazzFirstRound:hover{
-  height: 50px;
-  width: 115px;
-}
-
-/* Second Round */
-.sunsSecondRound{
-  position: relative;
-  left: -20%;
-  top: -18%;
-  }
 
 /******************************************
 /* ADDITIONAL STYLES
@@ -173,7 +208,7 @@ main {
 
 #phoStats, #nopStats, #dalStats, #utaStats, #memStats, #minStats, #gswStats, #denStats{
   position: absolute;
-  transform: translate(40px, -20px);
+  transform: translate(500px, -20px);
   border-radius: 40px;
   height: 300px;
   width: 800px;
@@ -202,4 +237,20 @@ main {
 
 .playerName{
   font-weight: bold;
+}
+
+footer{
+  display: flex;
+  justify-content: space-around;
+}
+
+.eastLotto, .westLotto{
+  display: flex; 
+  width: fit-content;
+  align-content: space-between
+}
+
+.playin{
+  justify-content: space-between;
+  
 }

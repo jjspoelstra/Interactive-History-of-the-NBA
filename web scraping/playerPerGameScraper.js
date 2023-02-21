@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
     } );
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0)
-    await page.goto('https://www.basketball-reference.com/teams/GSW/2022.html')
+    await page.goto('https://www.basketball-reference.com/teams/DEN/2022.html')
     
 
     let data = await page.evaluate(() => {
