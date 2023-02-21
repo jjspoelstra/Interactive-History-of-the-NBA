@@ -7,17 +7,16 @@ const puppeteer = require('puppeteer');
     } );
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0)
-    await page.goto('https://www.basketball-reference.com/teams/DEN/2022.html')
+    await page.goto('https://www.basketball-reference.com/teams/GSW/2022.html')
     
 
     let data = await page.evaluate(() => {
         const playerStats = document.querySelectorAll('#per_game tbody tr');
-        const playerAdvancedStats = document.querySelectorAll('#advanced tbody tr');
         const playersArray = []
 
        for (i=0; i<playerStats.length; i++){
             playersArray.push({
-                playerName: playerStats[i].children[1].attributes[2].value.split(',').reverse().join(' '),
+                playerName: playerStats[i].children[1].innerText,
                 age: playerStats[i].children[2].innerText,
                 games: playerStats[i].children[3].innerText,
                 gamesStarted:  playerStats[i].children[4].innerText,
@@ -43,31 +42,18 @@ const puppeteer = require('puppeteer');
                 blk: playerStats[i].children[24].innerText,
                 tov: playerStats[i].children[25].innerText,
                 pf: playerStats[i].children[26].innerText,
-                pts: playerStats[i].children[27].innerText,
-
-    // ORDER OF PG IS DIFFERENT THAN ADVANCED
-
-                // per: playerAdvancedStats[i].children[5].innerText,
-                // ts_pct: playerAdvancedStats[i].children[6].innerText,
-                // three_rate: playerAdvancedStats[i].children[7].innerText,
-                // ft_rate: playerAdvancedStats[i].children[8].innerText,
-                // usg_pct: playerAdvancedStats[i].children[16].innerText,
-                // ows: playerAdvancedStats[i].children[18].innerText,
-                // dws: playerAdvancedStats[i].children[19].innerText,
-                // ws: playerAdvancedStats[i].children[20].innerText,
-                // ws_p: playerAdvancedStats[i].children[21].innerText,
-                // bpm: playerAdvancedStats[i].children[25].innerText,
-                // vorp: playerAdvancedStats[i].children[26].innerText,
-            })     
+                pts: playerStats[i].children[27].innerText 
+            })  
         }
         return playersArray
+
     })
 
     console.log(data)
 
-    //save data to JSON file
+     //save data to JSON file
 
-    fs.writeFile('DEN2022.json', JSON.stringify(data), (err) => {
+     fs.writeFile('perGame.json', JSON.stringify(data), (err) => {
         if(err) throw err;
         console.log('file saved')
     })
