@@ -1,13 +1,17 @@
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
+
+
 (async function(){
     const browser = await puppeteer.launch( { 
         headless: false 
     } );
+    const team = "TOR"
+    const year = '2022'
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0)
-    await page.goto('https://www.basketball-reference.com/teams/DEN/2022.html')
+    await page.goto(`https://www.basketball-reference.com/teams/${team}/${year}.html`)
     
 
     let data = await page.evaluate(() => {
@@ -37,7 +41,7 @@ const puppeteer = require('puppeteer');
     console.log(data)
 
 
-    fs.writeFile('advanced.json', JSON.stringify(data), (err) => {
+    fs.writeFile(`C:/Users/jjspo/OneDrive/Desktop/NBA Site/data/${year}/${team}/advanced.json`, JSON.stringify(data), (err) => {
         if(err) throw err;
         console.log('file saved')
     })

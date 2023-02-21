@@ -70,8 +70,16 @@ const mem = new Club('Memphis Grizzlies', 'mem')
 const min = new Club('Minnesota Timberwolves', 'min')
 const gsw = new Club('Golden State Warriors', 'gsw')
 const den = new Club('Denver Nuggets', 'den')
+const mia = new Club('Miami Heat', 'mia')
+const atl = new Club('Atlanta Hawks', 'atl')
+const phi = new Club('Philadelphia 76ers', 'phi')
+const tor = new Club('Toronto Raptors', 'tor')
+const bos = new Club('Boston Celtics', 'bos')
+const brk = new Club('Brooklyn Nets', 'brk')
+const mil = new Club('Milwaukee Bucks', 'mil')
+const chi = new Club('Chicago Bulls', 'chi')
 
-const teams = [pho, uta, nop, dal, mem, min, gsw, den]
+const teams = [pho, uta, nop, dal, mem, min, gsw, den, mia, atl, phi, tor, bos, brk, mil, chi]
 
 for (let i = 0; i < teams.length; i++) {
     teams[i].getDataFetch()
