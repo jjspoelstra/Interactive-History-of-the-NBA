@@ -1,14 +1,16 @@
-///might want to create HTML elements in JS rather than have them already there. 
-
 
 class Club {
     constructor(name, abbr){
         this.name = name
         this.abbr = abbr
         this.sortOrder = []
-        this.statsSelector = document.querySelector(`#${this.abbr}Stats`)
-        document.querySelector(`.${this.abbr}`).addEventListener("mouseover", this.showStats)
-        document.querySelector(`.${this.abbr}`).addEventListener("mouseout", this.showStats)
+        this.statsSelector = document.querySelector(`#Stats`)
+        document.querySelectorAll(`.${this.abbr}`).forEach(item => {
+            item.addEventListener("mouseover", this.showStats)
+        })
+        document.querySelectorAll(`.${this.abbr}`).forEach(item => {
+            item.addEventListener("mouseout", this.showStats)
+        })
         this.establishSortOrder = () => {
             for (let i = 0; i<this.data.length ; i++){
                 this.sortOrder.push(this.data[i].playerName)
@@ -43,23 +45,22 @@ class Club {
     showStats = () => {
         this.statsSelector.classList.toggle('hidden')
         for (let i = 0; i <= 5; i++){
-            document.querySelector(`.${this.abbr}Players .player${i} .playerName`).innerText = this.data[i].playerName
-            document.querySelector(`.${this.abbr}Players .player${i} .ppg`).innerText = `PTS: ${this.data[i].pts}`
-            document.querySelector(`.${this.abbr}Players .player${i} .rpg`).innerText = `TRB: ${this.data[i].trb}`
-            document.querySelector(`.${this.abbr}Players .player${i} .apg`).innerText = `AST: ${this.data[i].ast}`
-            document.querySelector(`.${this.abbr}Players .player${i} .spg`).innerText = `STL: ${this.data[i].stl}`
-            document.querySelector(`.${this.abbr}Players .player${i} .bpg`).innerText = `BLK: ${this.data[i].blk}`
-            document.querySelector(`.${this.abbr}Players .player${i} .fg_pct`).innerText = `FG%: ${this.data[i].fg_pct}`
-            document.querySelector(`.${this.abbr}Players .player${i} .three_pct`).innerText = `3P%: ${this.data[i].threes_pct}`
-            document.querySelector(`.${this.abbr}Players .player${i} .ft_pct`).innerText = `FT%: ${this.data[i].ft_pct}`
-            document.querySelector(`.${this.abbr}Players .player${i} .ts_pct`).innerText = `TS%: ${this.advanced[i].ts_pct}`
-            document.querySelector(`.${this.abbr}Players .player${i} .ws`).innerText = `WS: ${this.advanced[i].ws}`
-            document.querySelector(`.${this.abbr}Players .player${i} .bpm`).innerText = `BPM: ${this.advanced[i].bpm}`
-            document.querySelector(`.${this.abbr}Players .player${i} .vorp`).innerText = `VORP: ${this.advanced[i].vorp}`
+            document.querySelector(`.Players .player${i} .playerName`).innerText = this.data[i].playerName
+            document.querySelector(`.Players .player${i} .ppg`).innerText = `PTS: ${this.data[i].pts}`
+            document.querySelector(`.Players .player${i} .rpg`).innerText = `TRB: ${this.data[i].trb}`
+            document.querySelector(`.Players .player${i} .apg`).innerText = `AST: ${this.data[i].ast}`
+            document.querySelector(`.Players .player${i} .spg`).innerText = `STL: ${this.data[i].stl}`
+            document.querySelector(`.Players .player${i} .bpg`).innerText = `BLK: ${this.data[i].blk}`
+            document.querySelector(`.Players .player${i} .fg_pct`).innerText = `FG%: ${this.data[i].fg_pct}`
+            document.querySelector(`.Players .player${i} .three_pct`).innerText = `3P%: ${this.data[i].threes_pct}`
+            document.querySelector(`.Players .player${i} .ft_pct`).innerText = `FT%: ${this.data[i].ft_pct}`
+            document.querySelector(`.Players .player${i} .ts_pct`).innerText = `TS%: ${this.advanced[i].ts_pct}`
+            document.querySelector(`.Players .player${i} .ws`).innerText = `WS: ${this.advanced[i].ws}`
+            document.querySelector(`.Players .player${i} .bpm`).innerText = `BPM: ${this.advanced[i].bpm}`
+            document.querySelector(`.Players .player${i} .vorp`).innerText = `VORP: ${this.advanced[i].vorp}`
         }   
     }
 }
-
 
 
 const pho = new Club('Phoenix Suns', 'pho')
@@ -78,8 +79,9 @@ const bos = new Club('Boston Celtics', 'bos')
 const brk = new Club('Brooklyn Nets', 'brk')
 const mil = new Club('Milwaukee Bucks', 'mil')
 const chi = new Club('Chicago Bulls', 'chi')
+const cho = new Club('Charlotte Hornets', 'cho')
 
-const teams = [pho, uta, nop, dal, mem, min, gsw, den, mia, atl, phi, tor, bos, brk, mil, chi]
+const teams = [pho, uta, nop, dal, mem, min, gsw, den, mia, atl, phi, tor, bos, brk, mil, chi, cho]
 
 for (let i = 0; i < teams.length; i++) {
     teams[i].getDataFetch()
@@ -91,4 +93,3 @@ for (let i = 0; i < teams.length; i++) {
         teams[i].advancedSort()
     }, 100);
 }
-    

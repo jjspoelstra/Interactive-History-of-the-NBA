@@ -13,9 +13,7 @@
      height: 0;
 }
 
-.clear {
-	clear: both;
-}
+
 
 
 /******************************************
@@ -23,13 +21,22 @@
 /*******************************************/
 
 img {
-  height: 60px;
+  height: 4rem;
   width:fit-content;
-  z-index: 1
+}
+
+footer img{
+  height: 3rem;
+  width: fit-content;
 }
 
 img:hover {
-  height: 65px;
+  height: 4.1rem;
+  width: fit-content;
+}
+
+footer img:hover{
+  height: 3.1rem;
   width: fit-content;
 }
 
@@ -37,16 +44,27 @@ img:hover {
   height: 50px
 }
 
-/* general bracket */
+.hidden { /* hides stats */
+  display: none;
+}
+
+
+
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+
+/* general bracket arrangement */
 
 main {
   display: flex;
   max-height: 100%;
   max-width: 100%;
-
+  position: relative
 }
 
-.firstRound, .secondRound, .thirdRound, .finals{
+.firstRound, .secondRound, .thirdRound, .finals, .finalsEast{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -59,23 +77,23 @@ main {
   padding: 5% 0 5% 0;
 }
 
-.finals {
+.finals, .finalsEast {
   height: 100%;
 }
 
-.finals .border {
+.finalsEast{
+  transform: rotate(90deg);
+  transform: scaleX(-1)
+    
+}
+
+.finals .border, .finalsEast .border {
   height: 25%;
   border-top: 5px solid grey;
 }
 
-.hidden {
-  display: none;
-}
 
 
-/******************************************
-/* LAYOUT
-/*******************************************/
 
 /* western conference */
 
@@ -126,6 +144,9 @@ main {
 .thirdEast {
   height: 47%;
 }
+
+
+/* TEAMS ARRANGEMENT ON THE BRACKET */
 
 .matchup {
   display: flex;
@@ -188,71 +209,17 @@ main {
 
 .eastFinalist{
   position: absolute;
-  transform: translate(300%, 5%);
+  transform: scaleX(-1) /*correcting flip*/ translate(50%);
+
 }
 
 .champion{
-  transform: translateY(400%);
+  transform: translate(25%, 30%);
+  width: 5%
 }
 
 /* teams */
 
-
-/* First Round */
-
-
-
-
-/******************************************
-/* ADDITIONAL STYLES
-/*******************************************/
-
-#phoStats, #nopStats, #dalStats, #utaStats, #memStats, #minStats, #gswStats, #denStats{
-  position: absolute;
-  transform: translate(500px, -20px);
-  border-radius: 40px;
-  height: 300px;
-  width: 800px;
-  border: 1px solid black;
-  background: white;
-  z-index: 5;
-  text-align: center;
-  flex-wrap: wrap;
-  padding: 10px;
-}
-
-#miaStats, #atlStats, #phiStats, #torStats, #bosStats, #brkStats, #milStats, #chiStats{
-  position: absolute;
-  transform: translate(-450px, -20px);
-  border-radius: 40px;
-  height: 300px;
-  width: 800px;
-  border: 1px solid black;
-  background: white;
-  z-index: 5;
-  text-align: center;
-  flex-wrap: wrap;
-  padding: 10px;
-}
-
-.phoPlayers, .nopPlayers, .dalPlayers, .utaPlayers, .memPlayers, .minPlayers, .gswPlayers, .denPlayers, .miaPlayers, .atlPlayers, .phiPlayers, .torPlayers, .bosPlayers, .brkPlayers, .milPlayers, .chiPlayers{
-  display: flex;
-  justify-content: space-between;
-  align-content: space-between;
-  flex-wrap: wrap;
-  padding-top: 5px;
-}
-
-.player0, .player1, .player2, .player3, .player4, .player5{
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-.playerName{
-  font-weight: bold;
-}
 
 footer{
   display: flex;
@@ -267,5 +234,49 @@ footer{
 
 .playin{
   justify-content: space-between;
-  
 }
+
+
+
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+
+/* styling player stats */
+
+.statsContainer{
+  justify-content: center;
+}
+
+#Stats{
+  position: absolute;
+  transform: translate(-55.5%, 5%);
+  border-radius: 40px;
+  height: 300px;
+  width: 800px;
+  border: 1px solid black;
+  background: white;
+  text-align: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  z-index: 1;
+}
+
+.Players{
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}
+
+.player0, .player1, .player2, .player3, .player4, .player5{
+  display: flex;
+  flex-direction: column;
+}
+
+.playerName{
+  font-weight: bold;
+}
+
