@@ -1,4 +1,4 @@
-///advanced statistics are out of order
+///might want to create HTML elements in JS rather than have them already there. 
 
 
 class Club {
@@ -51,7 +51,7 @@ class Club {
             document.querySelector(`.${this.abbr}Players .player${i} .bpg`).innerText = `BLK: ${this.data[i].blk}`
             document.querySelector(`.${this.abbr}Players .player${i} .fg_pct`).innerText = `FG%: ${this.data[i].fg_pct}`
             document.querySelector(`.${this.abbr}Players .player${i} .three_pct`).innerText = `3P%: ${this.data[i].threes_pct}`
-            document.querySelector(`.${this.abbr}Players .player${i} .ft_pct`).innerText = `AST: ${this.data[i].ft_pct}`
+            document.querySelector(`.${this.abbr}Players .player${i} .ft_pct`).innerText = `FT%: ${this.data[i].ft_pct}`
             document.querySelector(`.${this.abbr}Players .player${i} .ts_pct`).innerText = `TS%: ${this.advanced[i].ts_pct}`
             document.querySelector(`.${this.abbr}Players .player${i} .ws`).innerText = `WS: ${this.advanced[i].ws}`
             document.querySelector(`.${this.abbr}Players .player${i} .bpm`).innerText = `BPM: ${this.advanced[i].bpm}`
