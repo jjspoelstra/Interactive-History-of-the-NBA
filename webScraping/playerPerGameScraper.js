@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch( { 
         headless: false 
     } );
-    const team = "CHO"
+    const team = "ORL"
     const year = '2022'
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0)

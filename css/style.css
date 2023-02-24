@@ -23,25 +23,35 @@
 img {
   height: 4rem;
   width:fit-content;
+  transition-property: height;
+  transition-duration: .1s;
+  transition-timing-function: linear;
 }
 
 footer img{
   height: 3rem;
   width: fit-content;
+  transition-property: height;
+  transition-duration: .1s;
+  transition-timing-function: linear;
 }
 
 img:hover {
-  height: 4.1rem;
+  height: 4.5rem;
   width: fit-content;
 }
 
 footer img:hover{
-  height: 3.1rem;
+  height: 3.5rem;
   width: fit-content;
 }
 
 .uta {
-  height: 50px
+  height: 3rem
+}
+
+.uta:hover{
+  height: 3.5rem
 }
 
 .hidden { /* hides stats */
@@ -253,7 +263,7 @@ footer{
   position: absolute;
   transform: translate(-55.5%, 5%);
   border-radius: 40px;
-  height: 300px;
+  height: 320px;
   width: 800px;
   border: 1px solid black;
   background: white;
@@ -280,3 +290,56 @@ footer{
   font-weight: bold;
 }
 
+.game{
+  width: 10px;
+  position: absolute;
+  transform: translate(55px, 5px);
+}
+
+.oneeightGame1 {
+  color: orange;
+}
+.oneeightGame2{
+  color: navy;
+  transform: translate(55px, 65px);
+}
+.oneeightGame3{
+  color: orange;
+  transform: translate(70px, 5px);
+}
+.oneeightGame4{
+  color: navy;
+  transform: translate(70px, 65px);
+}
+.oneeightGame5{
+  color: orange;
+  transform: translate(85px, 5px);
+}
+.oneeightGame6{
+  color: orange;
+  transform: translate(100px, 5px);
+}
+
+.fourfiveGame1{
+  color: green;
+  transform: translate(55px, 65px)
+}
+.fourfiveGame2{
+  color: blue;
+}
+.fourfiveGame3{
+  color: blue;
+  transform: translate(70px, 5px);
+}
+.fourfiveGame4{
+  color: green;
+  transform: translate(70px, 65px);
+}
+.fourfiveGame5{
+  color: blue;
+  transform: translate(85px, 5px);
+}
+.fourfiveGame6{
+  color: blue;
+  transform: translate(100px, 5px);
+}
