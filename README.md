@@ -15,5 +15,7 @@ Media queries need to be optimized, so that mobile users will have an enjoyable 
 # Lessons Learned:
 Scraping capabilities and how finnicky and inconsistent the websites can be in terms of where data is kept. It is not always uniform, so we have to find ways to work around this inconsistency. 
 
+Realized that, for certain elements, creating a CSS hover state is simpler and more concise than adding an event listener to each individual element. 
+
 
 
