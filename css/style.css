@@ -261,7 +261,7 @@ footer{
   justify-content: center;
 }
 
-#Stats{
+#stats{
   position: absolute;
   transform: translate(-55.5%, 5%);
   border-radius: 40px;
@@ -299,59 +299,44 @@ footer{
   z-index: 1;
 }
 
-.oneeightGame1 {
-  color: orange;
+.topSeedWin1 {
+  transform: translate(55px, 5px);
+  z-index: 1;
 }
-.oneeightGame2{
-  color: navy;
+.lowSeedWin1{
   transform: translate(55px, 65px);
 }
-.oneeightGame3{
-  color: orange;
+.topSeedWin2{
   transform: translate(70px, 5px);
 }
-.oneeightGame4{
+.lowSeedWin2{
+  transform: translate(70px, 65px);
+}
+.topSeedWin3{
+  transform: translate(85px, 5px);
+}
+.lowSeedWin3{
+  transform: translate(85px, 65px);
+}
+.topSeedWin4{
+  transform: translate(100px, 5px);
+}
+.lowSeedWin4{
+  transform: translate(100px, 65px);
+}
+
+.phxWin{
+  color: orange;
+}
+
+.noWin{
   color: navy;
-  transform: translate(70px, 65px);
 }
-.oneeightGame5{
-  color: orange;
-  transform: translate(85px, 5px);
-}
-.oneeightGame6{
-  color: orange;
-  transform: translate(100px, 5px);
-}
-
-.fourfiveGame1{
-  color: green;
-  transform: translate(55px, 65px)
-}
-.fourfiveGame2{
-  color: blue;
-}
-.fourfiveGame3{
-  color: blue;
-  transform: translate(70px, 5px);
-}
-.fourfiveGame4{
-  color: green;
-  transform: translate(70px, 65px);
-}
-.fourfiveGame5{
-  color: blue;
-  transform: translate(85px, 5px);
-}
-.fourfiveGame6{
-  color: blue;
-  transform: translate(100px, 5px);
-}
-
 
 
 /* tooltip test */
 
-.game .tooltiptext {
+.game .toolTipText {
   width: 60px;
   text-align: center;
   padding: 5px 0;
@@ -367,7 +352,7 @@ footer{
 
 }
 
-.game:hover .tooltiptext{
+.game:hover .toolTipText{
   visibility: visible;
 }
 

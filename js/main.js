@@ -9,14 +9,16 @@ class Club {
                 this.sortOrder.push(this.data[i].playerName)
             }
         }
-        this.statsSelector = document.querySelector(`#Stats`)
+        this.statsSelector = document.querySelector(`#stats`)
+    }
+
+    addSelectors(){
         document.querySelectorAll(`.${this.abbr}`).forEach(item => {
             item.addEventListener("mouseover", this.showStats)
         })
         document.querySelectorAll(`.${this.abbr}`).forEach(item => {
             item.addEventListener("mouseout", this.showStats)
         })
-        
     }
 
     getDataFetch = () => {
@@ -66,8 +68,8 @@ class Club {
 }
 
 
-const pho = new Club('Phoenix Suns', 'pho')
-const nop = new Club('New Orleans Pelicans', 'nop')
+const phx = new Club('Phoenix Suns', 'phx')
+const no = new Club('New Orleans Pelicans', 'no')
 const dal = new Club('Dallas Mavericks', 'dal')
 const uta = new Club('Utah Jazz', 'uta')
 const mem = new Club('Memphis Grizzlies', 'mem')
@@ -97,7 +99,7 @@ const ind = new Club('Indiana Pacers', 'ind')
 const det = new Club('Detroit Pistons', 'det')
 const orl = new Club('Orlando Magic', 'orl')
 
-const teams = [pho, uta, nop, dal, mem, min, gsw, den, mia, atl, phi, tor, bos, brk, mil, chi, cho, lac, sas, lal, sac, por, okc, hou, cle, nyk, was, ind, det, orl] //
+const teams = [phx, uta, no, dal, mem, min, gsw, den, mia, atl, phi, tor, bos, brk, mil, chi, cho, lac, sas, lal, sac, por, okc, hou, cle, nyk, was, ind, det, orl] //
 
 for (let i = 0; i < teams.length; i++) {
     teams[i].getDataFetch()
@@ -108,20 +110,121 @@ for (let i = 0; i < teams.length; i++) {
     setTimeout(() => {
         teams[i].advancedSort()
     }, 100);
+    setTimeout(() => {
+        teams[i].addSelectors()
+    }, 200);
 }
 
 
 
-//add to teams
+//advance playoffs       (season object? Not sure it makes sense to add to each team)
 
-document.querySelector('body').addEventListener('click', advance)
+document.querySelector('.advance').addEventListener('click', advance)
 
 let clicks = 0
 function advance(){
     clicks++
-    document.querySelectorAll(`.game${clicks}`).forEach(item => {
+    document.querySelectorAll(`.game${clicks - 1}`).forEach(item => {
         item.classList.toggle('hidden')
     })
 }
+
+
+
+
+
+
+//testing
+let playoffData
+fetchPlayoffs = () => {
+    fetch(`data/2022/playoffs.json`)
+    .then((response) => response.json())
+    .then((json) => {
+        playoffData = json})
+    .then(() => {
+        console.log(playoffData)
+
+        let oneEightSplitEast = playoffData[0][0].gameScores[0].split(' ')
+        let eastOne = oneEightSplitEast[0].toLowerCase()
+        let eastEight = oneEightSplitEast[2].toLowerCase()
+
+        let oneEightSplitWest = playoffData[0][4].gameScores[0].split(' ')
+        let westOne = oneEightSplitWest[0].toLowerCase()
+        let westEight = oneEightSplitWest[2].toLowerCase()
+
+        document.querySelector('.eastOneSeed').classList.add(`${eastOne}`)
+        document.querySelector('.eastOneSeed').src = `img/${eastOne}.png`
+        document.querySelector('.eastEightSeed').classList.add(`${eastEight}`)
+        document.querySelector('.eastEightSeed').src = `img/${eastEight}.png`
+       
+
+        document.querySelector('.westOneSeed').classList.add(`${westOne}`)
+        document.querySelector('.westOneSeed').src = `img/${westOne}.png`
+        document.querySelector('.westEightSeed').classList.add(`${westEight}`)
+        document.querySelector('.westEightSeed').src = `img/${westEight}.png`
+
+        if (playoffData[0][0].team1Wins === '4'){
+            document.querySelector('.eastOneEightWinner').classList.add(`${eastOne}`)
+            document.querySelector('.eastOneEightWinner').src = `img/${eastOne}.png`
+        }
+        else {
+            document.querySelector('.eastOneEightWinner').classList.add(`${eastEight}`)
+            document.querySelector('.eastOneEightWinner').src = `img/${eastEight}.png`
+        }
+
+        if (playoffData[0][4].team1Wins === '4'){
+            document.querySelector('.westOneEightWinner').classList.add(`${westOne}`)
+            document.querySelector('.westOneEightWinner').src = `img/${westOne}.png`
+        }
+        else {
+            document.querySelector('.westOneEightWinner').classList.add(`${westEight}`)
+            document.querySelector('.westOneEightWinner').src = `img/${westEight}.png`
+        }
+
+        let topSeedWins = 0
+        let lowSeedWins = 0
+
+        for (let i = 0; i < playoffData[0][4].gameScores.length; i++){
+            console.log(westOne)
+            let topSeed = westOne
+            let game = playoffData[0][4].gameScores[i].split(', ').join(' ').split(' ')
+            let span = document.createElement('span')
+            let winner = game[0].toLowerCase()
+            span.classList.add(`${winner}Win`)
+            if (span.classList.contains(`${topSeed}Win`)){
+                topSeedWins += 1
+                span.classList.add(`topSeedWin${topSeedWins}`)
+            } else {
+                lowSeedWins += 1
+                span.classList.add(`lowSeedWin${topSeedWins}`)
+            }
+
+            span.classList.add(`game${i}`, `hidden`, 'game')
+            span.innerHTML = '&#9654;'
+
+            let tooltip = document.createElement('span')
+            tooltip.classList.add('toolTipText')
+            tooltip.innerText = `${game[1]} - ${game[3]}`
+            span.append(tooltip)
+            document.querySelector('.westOneEight').prepend(span)
+            
+        }
+
+    })   
+}
+
+  
+fetchPlayoffs()
+
+
+   
+class Matchup {
+    constructor(round){
+        this.round = round
+    }
+}    
+
+
+
 
 
