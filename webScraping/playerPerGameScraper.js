@@ -16,7 +16,14 @@ const puppeteer = require('puppeteer');
 
     let data = await page.evaluate(() => {
         const playerStats = document.querySelectorAll('#per_game tbody tr');
+        const seedInfo = document.querySelectorAll('#meta div + div > p');
+        const seed = seedInfo[0].innerText.split(' ')[3]
+        const teamData = []
         const playersArray = []
+
+        teamData.push({
+            seed: seed
+        })
 
        for (i=0; i<playerStats.length; i++){
             playersArray.push({
@@ -49,7 +56,9 @@ const puppeteer = require('puppeteer');
                 pts: playerStats[i].children[27].innerText 
             })  
         }
-        return playersArray
+        
+        teamData.push(playersArray)
+        return teamData
 
     })
 
