@@ -116,9 +116,26 @@ document.querySelector('.advance').addEventListener('click', advance)
 let clicks = 0
 function advance(){
     clicks++
-    document.querySelectorAll(`.game${clicks - 1}`).forEach(item => {
-        item.classList.toggle('hidden')
-    })
+    if (clicks < 8){
+        document.querySelectorAll(`.click1 .game${clicks - 1}`).forEach(item => {
+            item.classList.toggle('hidden')
+        }) 
+    }
+    else if (clicks < 15){
+        document.querySelectorAll(`.click2 .game${clicks - 8}`).forEach(item => {
+            item.classList.toggle('hidden')
+        }) 
+    }
+    else if (clicks < 22){
+        document.querySelectorAll(`.click3 .game${clicks - 15}`).forEach(item => {
+            item.classList.toggle('hidden')
+        }) 
+    }
+    else {
+        document.querySelectorAll(`.click4 .game${clicks - 22}`).forEach(item => {
+            item.classList.toggle('hidden')
+        }) 
+    }
 }
 
 
@@ -143,6 +160,8 @@ fetchPlayoffs()
 class Matchup {
     constructor(name, seed1, seed2, conference){
         this.name = name
+        this.seed1 = seed1 
+        this.seed2 = seed2
         this.conference = conference
         this.team1 = teams.filter(x => x.conference === `${conference}` && x.seed === `${seed1}`)[0].abbr
         this.team2 = teams.filter(x => x.conference === `${conference}` && x.seed === `${seed2}`)[0].abbr
@@ -169,13 +188,24 @@ class Matchup {
         for (let i = 0; i < this.games.length; i++){
             let team1Score 
             let team2Score
-            if (i === 0 || i === 1 || i === 4 || i === 6){
-                team1Score = this.games[i].homeTeam.slice(-3).trim()
-                team2Score = this.games[i].awayTeam.slice(-3).trim()
+            if (+this.seed1.slice(0,1) < +this.seed2.slice(0,1)){
+                if (i === 0 || i === 1 || i === 4 || i === 6){
+                    team1Score = this.games[i].homeTeam.slice(-3).trim()
+                    team2Score = this.games[i].awayTeam.slice(-3).trim()
+                } else {
+                    team1Score = this.games[i].awayTeam.slice(-3).trim()
+                    team2Score = this.games[i].homeTeam.slice(-3).trim()
+                }
             } else {
-                team1Score = this.games[i].awayTeam.slice(-3).trim()
-                team2Score = this.games[i].homeTeam.slice(-3).trim()
+                if (i === 0 || i === 1 || i === 4 || i === 6){
+                    team1Score = this.games[i].awayTeam.slice(-3).trim()
+                    team2Score = this.games[i].homeTeam.slice(-3).trim()
+                } else {
+                    team1Score = this.games[i].homeTeam.slice(-3).trim()
+                    team2Score = this.games[i].awayTeam.slice(-3).trim()
+                }
             }
+            
         
             let span = document.createElement('span')
             span.classList.add(`game${i}`, `hidden`, 'game')
@@ -191,7 +221,7 @@ class Matchup {
 
             let tooltip = document.createElement('span')
             tooltip.classList.add('toolTipText')
-            tooltip.innerText = `${team1Score} - ${team2Score}`
+            tooltip.innerText = `Game ${i+1} ${team1Score} - ${team2Score}`
             span.append(tooltip)
             document.querySelector(`.${this.name}`).prepend(span)
         }
@@ -245,42 +275,39 @@ class Finals{
                 team2Score = this.games[i].homeTeam.slice(-3).trim()
             }
         
-            let span = document.createElement('span')
-            span.classList.add(`game${i}`, `hidden`, 'game')
-            this.conference === 'west' ? span.innerHTML = '&#9654;' : span.innerHTML = '&#9664;'
+            
+            let spanWest = document.createElement('span')
+            spanWest.classList.add(`game${i}`, `hidden`, 'game')
+            spanWest.innerHTML = '&#9654;' 
+            
+            let spanEast = document.createElement('span')
+            spanEast.classList.add(`game${i}`, `hidden`, 'game')
+            spanEast.innerHTML = '&#9664;' 
             
             if (+team1Score > +team2Score){
                 topSeedWins += 1
-                span.classList.add(`${this.team1}Win`, `topSeedWin${topSeedWins}`)
+                spanWest.classList.add(`${this.team1}Win`, `topSeedWin${topSeedWins}`)
+                let tooltipWest = document.createElement('span')
+                tooltipWest.classList.add('toolTipText')
+                tooltipWest.innerText = `Game ${i+1} ${team1Score} - ${team2Score}`
+                spanWest.append(tooltipWest)
+                document.querySelector(`.finals`).prepend(spanWest)
+
             } else {
                 lowSeedWins += 1
-                span.classList.add(`${this.team2}Win`, `lowSeedWin${lowSeedWins}`)
+                spanEast.classList.add(`${this.team2}Win`, `lowSeedWin${lowSeedWins}`)
+                let tooltipEast = document.createElement('span')
+                tooltipEast.classList.add('toolTipText')
+                tooltipEast.innerText = `Game ${i+1} ${team1Score} - ${team2Score}`
+                spanEast.append(tooltipEast)
+                document.querySelector('.eastWinner').prepend(spanEast)
             }
-
-            let tooltip = document.createElement('span')
-            tooltip.classList.add('toolTipText')
-            tooltip.innerText = `${team1Score} - ${team2Score}`
-            span.append(tooltip)
-            document.querySelector(`.champion`).prepend(span)
         }
     }
 }
 
-let westOneEight
-let eastOneEight
-let westFourFive
-let eastFourFive
-let westThreeSix
-let eastThreeSix
-let westTwoSeven
-let eastTwoSeven
-let westUpper
-let westLower
-let eastUpper
-let eastLower
-let eastFinals
-let westFinals
-let finals
+let westOneEight, eastOneEight, westFourFive, eastFourFive, westThreeSix, eastThreeSix, westTwoSeven, eastTwoSeven, westUpper, westLower, eastUpper, eastLower, eastFinals, westFinals, finals
+
 function createMatchup(){
     westOneEight = new Matchup('westOneEight', '1st', '8th', 'west') 
     eastOneEight = new Matchup('eastOneEight', '1st', '8th', 'east')

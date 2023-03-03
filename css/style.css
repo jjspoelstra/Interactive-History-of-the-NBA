@@ -272,7 +272,7 @@ footer{
   text-align: center;
   flex-wrap: wrap;
   padding: 10px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .Players{
@@ -292,16 +292,25 @@ footer{
   font-weight: bold;
 }
 
+/* base gameWon styles */
+/* CHANGE TO RELATIVE */
 .game{
   width: 15px;
   position: absolute;
   transform: translate(55px, 5px);
   z-index: 1;
 }
-
-.topSeedWin1 {
+.east .game{
+  
+  width: 15px;
+  position: absolute;
   transform: translate(55px, 5px);
   z-index: 1;
+}
+
+/* west 1st round */
+.topSeedWin1 {
+  transform: translate(55px, 5px);
 }
 .lowSeedWin1{
   transform: translate(55px, 65px);
@@ -326,17 +335,9 @@ footer{
 }
 
 
-.east .game{
-  
-  width: 15px;
-  position: absolute;
-  transform: translate(55px, 5px);
-  z-index: 1;
-}
-
+/* east 1st round */
 .east .topSeedWin1 {
   transform: translate(130px, 5px);
-  z-index: 1;
 }
 .east .lowSeedWin1{
   transform: translate(130px, 65px);
@@ -359,20 +360,241 @@ footer{
 .east .lowSeedWin4{
   transform: translate(85px, 65px);
 }
+
+
+/* west 2nd round */
+.westUpper .topSeedWin1, .westLower .topSeedWin1 {
+  transform: translate(45px, 5px);
+}
+.westUpper .lowSeedWin1, .westLower .lowSeedWin1{
+  transform: translate(45px, 145px);
+}
+.westUpper .topSeedWin2, .westLower .topSeedWin2{
+  transform: translate(60px, 5px);
+}
+.westUpper .lowSeedWin2, .westLower .lowSeedWin2{
+  transform: translate(60px, 145px);
+}
+.westUpper .topSeedWin3, .westLower .topSeedWin3{
+  transform: translate(75px, 5px);
+}
+.westUpper .lowSeedWin3, .westLower .lowSeedWin3{
+  transform: translate(75px, 145px);
+}
+.westUpper .topSeedWin4, .westLower .topSeedWin4{
+  transform: translate(90px, 5px);
+}
+.westUpper .lowSeedWin4, .westLower .lowSeedWin4{
+  transform: translate(90px, 145px);
+}
+
+/* east 2nd round */
+
+.eastUpper .topSeedWin1 , .eastLower .topSeedWin1{
+  transform: translate(130px, 5px);
+
+}
+.eastUpper .lowSeedWin1, .eastLower .lowSeedWin1{
+  transform: translate(130px, 145px);
+}
+.eastUpper .topSeedWin2, .eastLower .topSeedWin2{
+  transform: translate(115px, 5px);
+}
+.eastUpper .lowSeedWin2, .eastLower .lowSeedWin2{
+  transform: translate(115px, 145px);
+}
+.eastUpper .topSeedWin3, .eastLower .topSeedWin3{
+  transform: translate(100px, 5px);
+}
+.eastUpper .lowSeedWin3, .eastLower .lowSeedWin3{
+  transform: translate(100px, 145px);
+}
+.eastUpper .topSeedWin4, .eastLower .topSeedWin4{
+  transform: translate(85px, 5px);
+}
+.eastUpper .lowSeedWin4, .eastLower .lowSeedWin4{
+  transform: translate(85px, 145px);
+}
+
+/* west finals  */
+
+.westFinal .topSeedWin1 {
+  transform: translate(55px, 5px);
+ 
+}
+.westFinal .lowSeedWin1{
+  transform: translate(55px, 340px);
+}
+.westFinal .topSeedWin2{
+  transform: translate(70px, 5px);
+}
+.westFinal .lowSeedWin2{
+  transform: translate(70px, 340px);
+}
+.westFinal .topSeedWin3{
+  transform: translate(85px, 5px);
+}
+.westFinal .lowSeedWin3{
+  transform: translate(85px, 340px);
+}
+.westFinal .topSeedWin4{
+  transform: translate(100px, 5px);
+}
+.westFinal .lowSeedWin4{
+  transform: translate(100px, 340px);
+}
+
+
+/* east finals */
+/* .eastFinal{
+  transform: scale(1,-1)
+} */
+.eastFinal .topSeedWin1 {
+  transform: translate(135px, 5px);
+ 
+}
+.eastFinal .lowSeedWin1{
+  transform: translate(135px, 340px);
+}
+.eastFinal .topSeedWin2{
+  transform: translate(120px, 5px);
+}
+.eastFinal .lowSeedWin2{
+  transform: translate(120px, 340px);
+}
+.eastFinal .topSeedWin3{
+  transform: translate(105px, 5px);
+}
+.eastFinal .lowSeedWin3{
+  transform: translate(105px, 340px);
+}
+.eastFinal .topSeedWin4{
+  transform: translate(90px, 5px);
+}
+.eastFinal .lowSeedWin4{
+  transform: translate(90px, 340px);
+}
+
+
+
+/* finals */
+
+.finals .topSeedWin1 {
+  transform: translate(40px, 20px);
+}
+.eastWinner .lowSeedWin1{
+  transform: translate(145px, 410px);
+}
+.finals .topSeedWin2{
+  transform: translate(55px, 20px);
+}
+.eastWinner .lowSeedWin2{
+  transform: translate(130px, 410px);
+}
+.finals .topSeedWin3{
+  transform: translate(70px, 20px);
+}
+.eastWinner .lowSeedWin3{
+  transform: translate(105px, 340px);
+}
+.finals .topSeedWin4{
+  transform: translate(85px, 20px);
+}
+.eastWinner .lowSeedWin4{
+  transform: translate(90px, 340px);
+}
+
+
+  /* team colors */
 .phoWin{
   color: rgb(229, 95, 32);
 }
-
 .nopWin{
   color: rgb(0,22,65);
 }
-
 .miaWin{
   color: rgb(152, 0, 46)
 }
-
 .atlWin{
   color: rgb(200, 16, 46)
+}
+.phiWin{
+  color: rgb(0, 107, 182)
+}
+.torWin{
+  color: rgb(206, 17, 65)
+}
+.bosWin{
+  color: rgb(0, 122, 51)
+}
+.brkWin{
+  color: black
+}
+.milWin{
+  color: rgb(0, 71, 27)
+}
+.chiWin{
+  color: rgb(206, 17, 65)
+}
+.cleWin{
+  color: rgb(134, 0, 56)
+}
+.choWin{
+  color: rgb(29, 17, 96)
+}
+.nykWin{
+  color: rgb(245, 132, 38)
+}
+.wasWin{
+  color: rgb(0,43,92)
+}
+.indWin{
+  color: rgb(253, 187, 48)
+}
+.detWin{
+  color: rgb(181,179,179)
+}
+.orlWin{
+  color: rgb(0, 125, 197)
+}
+.dalWin{
+  color: rgb(0, 83, 188)
+}
+.utaWin{
+  color: rgb(0, 71, 27)
+}
+.memWin{
+  color: rgb(93, 118, 169)
+}
+.minWin{
+  color: rgb(12, 35, 64)
+}
+.gswWin{
+  color: rgb(255, 199, 44)
+}
+.denWin{
+  color: rgb(139, 35, 50)
+}
+.lacWin{
+  color: rgb(200,16,46)
+}
+.sasWin{
+  color: rgb(196, 206, 211)
+}
+.lalWin{
+  color: rgb(85, 37, 130)
+}
+.sacWin{
+  color: rgb(91,43,130)
+}
+.porWin{
+  color: rgb(224, 58, 62)
+}
+.okcWin{
+  color: rgb(239, 59, 36)
+}
+.houWin{
+  color: rgb(206,17,65)
 }
 /* tooltip test */
 
