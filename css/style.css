@@ -214,12 +214,12 @@ main {
   height: 430px;
 }
 
-.westFinalist{
+.westFinalistWinner{
   position: absolute;
   transform: translate(-50%, 5%);
 }
 
-.eastFinalist{
+.eastFinalistWinner{
   position: absolute;
   transform: scaleX(-1) /*correcting flip*/ translate(50%);
 

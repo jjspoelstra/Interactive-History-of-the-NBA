@@ -146,17 +146,89 @@ class Matchup {
         this.conference = conference
         this.team1 = teams.filter(x => x.conference === `${conference}` && x.seed === `${seed1}`)[0].abbr
         this.team2 = teams.filter(x => x.conference === `${conference}` && x.seed === `${seed2}`)[0].abbr
-        this.correctData = playoffData[1].filter((x) => x.team1.toLowerCase() === `${this.team1}` && x.team2.toLowerCase() === `${this.team2}`)
-        this.team1Wins = this.correctData[0].team1Wins
-        this.team2Wins = this.correctData[0].team2Wins
+        this.correctData = playoffData[1].filter((x) => (x.team1.toLowerCase() === `${this.team1}` && x.team2.toLowerCase() === `${this.team2}`) || x.team1.toLowerCase() === `${this.team2}` && x.team2.toLowerCase() === `${this.team1}`)
+        this.team1Wins = this.team1 === this.correctData[0].team1.toLowerCase() ? this.correctData[0].team1Wins : this.correctData[0].team2Wins     //makes sure 'team1' is always the top
+        this.team2Wins = this.team2 === this.correctData[0].team2.toLowerCase() ? this.correctData[0].team2Wins : this.correctData[0].team1Wins
         this.round = this.correctData[0].round
         this.games = this.correctData[0].gameScores
+        this.winner = this.team1Wins === '4' ? seed1 : seed2
+        if (seed1 === "1st" && seed2 === '8th' || seed1 === "2nd" && seed2 === '7th' || seed1 === "3rd" && seed2 === '6th' || seed1 === "4th" && seed2 === '5th'){
+            if (this.team1Wins == 4){
+                document.querySelector(`.${conference}${seed1}${seed2}Winner`).classList.add(`${this.team1}`)
+                document.querySelector(`.${conference}${seed1}${seed2}Winner`).src = `img/${this.team1}.png`
+            } else {
+                document.querySelector(`.${conference}${seed1}${seed2}Winner`).classList.add(`${this.team2}`)
+                document.querySelector(`.${conference}${seed1}${seed2}Winner`).src = `img/${this.team2}.png`
+            }
+        }
+       
+    }
+    paintGames = () => {
+        let topSeedWins = 0
+        let lowSeedWins = 0
+        for (let i = 0; i < this.games.length; i++){
+            let team1Score 
+            let team2Score
+            if (i === 0 || i === 1 || i === 4 || i === 6){
+                team1Score = this.games[i].homeTeam.slice(-3).trim()
+                team2Score = this.games[i].awayTeam.slice(-3).trim()
+            } else {
+                team1Score = this.games[i].awayTeam.slice(-3).trim()
+                team2Score = this.games[i].homeTeam.slice(-3).trim()
+            }
+        
+            let span = document.createElement('span')
+            span.classList.add(`game${i}`, `hidden`, 'game')
+            this.conference === 'west' ? span.innerHTML = '&#9654;' : span.innerHTML = '&#9664;'
+            
+            if (+team1Score > +team2Score){
+                topSeedWins += 1
+                span.classList.add(`${this.team1}Win`, `topSeedWin${topSeedWins}`)
+            } else {
+                lowSeedWins += 1
+                span.classList.add(`${this.team2}Win`, `lowSeedWin${lowSeedWins}`)
+            }
+
+            let tooltip = document.createElement('span')
+            tooltip.classList.add('toolTipText')
+            tooltip.innerText = `${team1Score} - ${team2Score}`
+            span.append(tooltip)
+            document.querySelector(`.${this.name}`).prepend(span)
+        }
+    }
+}
+
+class SecondRound extends Matchup {
+    constructor(name, seed1, seed2, conference, seedPotential){
+        super(name, seed1, seed2, conference)
         if (this.team1Wins == 4){
-            document.querySelector(`.${conference}${seed1}${seed2}Winner`).classList.add(`${this.team1}`)
-            document.querySelector(`.${conference}${seed1}${seed2}Winner`).src = `img/${this.team1}.png`
+            document.querySelector(`.${conference}${seedPotential}Winner`).classList.add(`${this.team1}`)
+            document.querySelector(`.${conference}${seedPotential}Winner`).src = `img/${this.team1}.png`
         } else {
-            document.querySelector(`.${conference}${seed1}${seed2}Winner`).classList.add(`${this.team2}`)
-            document.querySelector(`.${conference}${seed1}${seed2}Winner`).src = `img/${this.team2}.png`
+            document.querySelector(`.${conference}${seedPotential}Winner`).classList.add(`${this.team2}`)
+            document.querySelector(`.${conference}${seedPotential}Winner`).src = `img/${this.team2}.png`
+        }
+    }
+}
+
+class Finals{
+    constructor(name, seed1, seed2, conference, seedPotential){
+        this.name = name
+        this.conference = conference
+        this.team1 = teams.filter(x => x.conference === `west` && x.seed === `${seed1}`)[0].abbr
+        this.team2 = teams.filter(x => x.conference === `east` && x.seed === `${seed2}`)[0].abbr
+        this.correctData = playoffData[1][0]
+        this.team1Wins = this.team1 === this.correctData.team1.toLowerCase() ? this.correctData.team1Wins : this.correctData[0].team2Wins     //makes sure 'team1' is always the top
+        this.team2Wins = this.team2 === this.correctData.team2.toLowerCase() ? this.correctData.team2Wins : this.correctData[0].team1Wins
+        this.round = this.correctData.round
+        this.games = this.correctData.gameScores
+        this.winner = this.team1Wins === '4' ? seed1 : seed2
+        if (this.team1Wins == 4){
+            document.querySelector(`.finalsChampion`).classList.add(`${this.team1}`)
+            document.querySelector(`.finalsChampion`).src = `img/${this.team1}.png`
+        } else {
+            document.querySelector(`.finalsChampion`).classList.add(`${this.team2}`)
+            document.querySelector(`.finalsChampion`).src = `img/${this.team2}.png`
         }
     }
     paintGames = () => {
@@ -177,9 +249,6 @@ class Matchup {
             span.classList.add(`game${i}`, `hidden`, 'game')
             this.conference === 'west' ? span.innerHTML = '&#9654;' : span.innerHTML = '&#9664;'
             
-            
-
-            
             if (+team1Score > +team2Score){
                 topSeedWins += 1
                 span.classList.add(`${this.team1}Win`, `topSeedWin${topSeedWins}`)
@@ -192,12 +261,10 @@ class Matchup {
             tooltip.classList.add('toolTipText')
             tooltip.innerText = `${team1Score} - ${team2Score}`
             span.append(tooltip)
-            document.querySelector(`.${this.name}`).prepend(span)
+            document.querySelector(`.champion`).prepend(span)
         }
     }
 }
-
-
 
 let westOneEight
 let eastOneEight
@@ -207,6 +274,13 @@ let westThreeSix
 let eastThreeSix
 let westTwoSeven
 let eastTwoSeven
+let westUpper
+let westLower
+let eastUpper
+let eastLower
+let eastFinals
+let westFinals
+let finals
 function createMatchup(){
     westOneEight = new Matchup('westOneEight', '1st', '8th', 'west') 
     eastOneEight = new Matchup('eastOneEight', '1st', '8th', 'east')
@@ -216,6 +290,13 @@ function createMatchup(){
     eastTwoSeven = new Matchup('eastTwoSeven', '2nd', '7th', 'east')
     westThreeSix = new Matchup('westThreeSix', '3rd', '6th', 'west')
     eastThreeSix = new Matchup('eastThreeSix', '3rd', '6th', 'east')
+    westUpper = new SecondRound('westUpper', `${westOneEight.winner}`, `${westFourFive.winner}`, 'west', '1st8th4th5th')
+    westLower = new SecondRound('westLower', `${westTwoSeven.winner}`, `${westThreeSix.winner}`, 'west', '2nd7th3rd6th')
+    eastUpper = new SecondRound('eastUpper', `${eastOneEight.winner}`, `${eastFourFive.winner}`, 'east', '1st8th4th5th')
+    eastLower = new SecondRound('eastLower', `${eastTwoSeven.winner}`, `${eastThreeSix.winner}`, 'east', '2nd7th3rd6th')
+    eastFinals = new SecondRound('eastFinal', `${eastUpper.winner}`, `${eastLower.winner}`, 'east', 'Finalist')
+    westFinals = new SecondRound('westFinal', `${westUpper.winner}`, `${westLower.winner}`, 'west', 'Finalist')
+    finals = new Finals('finals', `${westFinals.winner}`, `${eastFinals.winner}`, 'finals', 'Champion')
 }
 
 
@@ -231,6 +312,13 @@ setTimeout(() => {
     eastTwoSeven.paintGames()
     westThreeSix.paintGames()
     eastThreeSix.paintGames()
+    westUpper.paintGames()
+    westLower.paintGames()
+    eastUpper.paintGames()
+    eastLower.paintGames()
+    eastFinals.paintGames()
+    westFinals.paintGames()
+    finals.paintGames()
 }, 100);
 
 
