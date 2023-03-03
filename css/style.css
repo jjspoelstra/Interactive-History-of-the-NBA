@@ -325,15 +325,55 @@ footer{
   transform: translate(100px, 65px);
 }
 
-.phxWin{
-  color: orange;
+
+.east .game{
+  
+  width: 15px;
+  position: absolute;
+  transform: translate(55px, 5px);
+  z-index: 1;
 }
 
-.noWin{
-  color: navy;
+.east .topSeedWin1 {
+  transform: translate(130px, 5px);
+  z-index: 1;
+}
+.east .lowSeedWin1{
+  transform: translate(130px, 65px);
+}
+.east .topSeedWin2{
+  transform: translate(115px, 5px);
+}
+.east .lowSeedWin2{
+  transform: translate(115px, 65px);
+}
+.east .topSeedWin3{
+  transform: translate(100px, 5px);
+}
+.east .lowSeedWin3{
+  transform: translate(100px, 65px);
+}
+.east .topSeedWin4{
+  transform: translate(85px, 5px);
+}
+.east .lowSeedWin4{
+  transform: translate(85px, 65px);
+}
+.phoWin{
+  color: rgb(229, 95, 32);
 }
 
+.nopWin{
+  color: rgb(0,22,65);
+}
 
+.miaWin{
+  color: rgb(152, 0, 46)
+}
+
+.atlWin{
+  color: rgb(200, 16, 46)
+}
 /* tooltip test */
 
 .game .toolTipText {

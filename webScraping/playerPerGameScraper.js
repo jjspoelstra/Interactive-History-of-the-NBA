@@ -21,9 +21,6 @@ const puppeteer = require('puppeteer');
         const teamData = []
         const playersArray = []
 
-        teamData.push({
-            seed: seed
-        })
 
        for (i=0; i<playerStats.length; i++){
             playersArray.push({
@@ -57,8 +54,8 @@ const puppeteer = require('puppeteer');
             })  
         }
         
-        teamData.push(playersArray)
-        return teamData
+        
+        return playersArray
 
     })
 

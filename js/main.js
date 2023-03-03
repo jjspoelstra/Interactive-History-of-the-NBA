@@ -10,6 +10,11 @@ class Club {
             }
         }
         this.statsSelector = document.querySelector(`#stats`)
+        
+    }
+
+    get seed(){
+        
     }
 
     addSelectors(){
@@ -137,7 +142,7 @@ function advance(){
 //testing
 let playoffData
 fetchPlayoffs = () => {
-    fetch(`data/2022/playoffs.json`)
+    fetch(`data/2022/playoffsOrigin.json`)
     .then((response) => response.json())
     .then((json) => {
         playoffData = json})
