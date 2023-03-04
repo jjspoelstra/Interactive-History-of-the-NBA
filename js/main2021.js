@@ -18,10 +18,6 @@ class Club {
         document.querySelector(`.${this.conference}${this.seed}`).src = `img/${this.abbr}.png`
     }
 
-    sortStats(){
-        
-    }
-
     addSelectors(){
         document.querySelectorAll(`.${this.abbr}`).forEach(item => {
             item.addEventListener("mouseover", this.showStats)
@@ -32,7 +28,7 @@ class Club {
     }
 
     getDataFetch = () => {
-        fetch(`data/2022/${this.abbr}/perGame.json`)
+        fetch(`data/2021/${this.abbr}/perGame.json`)
         .then((response) => response.json())
         .then((json) => {
             this.data = json})
@@ -46,7 +42,6 @@ class Club {
     showStats = () => {
         this.statsSelector.classList.toggle('hidden')
         for (let i = 0; i <= 5; i++){
-            document.querySelector('.record').innerText = this.data[0].record
             document.querySelector(`.Players .player${i} .playerName`).innerText = this.data[1][i].playerName
             document.querySelector(`.Players .player${i} .gp`).innerText = `GP: ${this.data[1][i].stats.games}`
             document.querySelector(`.Players .player${i} .mpg`).innerText = `MPG: ${this.data[1][i].stats.mpg}`
@@ -65,7 +60,6 @@ class Club {
         }   
     }
 }
-
 
 
 const pho = new Club('Phoenix Suns', 'pho')
@@ -147,7 +141,7 @@ function advance(){
 
 let playoffData
 fetchPlayoffs = () => {
-    fetch(`data/2022/playoffs.json`)
+    fetch(`data/2021/playoffs.json`)
     .then((response) => response.json())
     .then((json) => {
         playoffData = json})
@@ -253,8 +247,8 @@ class Finals{
         this.team1 = teams.filter(x => x.conference === `west` && x.seed === `${seed1}`)[0].abbr
         this.team2 = teams.filter(x => x.conference === `east` && x.seed === `${seed2}`)[0].abbr
         this.correctData = playoffData[1][0]
-        this.team1Wins = this.team1 === this.correctData.team1.toLowerCase() ? this.correctData.team1Wins : this.correctData[0].team2Wins     //makes sure 'team1' is always the top
-        this.team2Wins = this.team2 === this.correctData.team2.toLowerCase() ? this.correctData.team2Wins : this.correctData[0].team1Wins
+        this.team1Wins = this.team1 === this.correctData.team1.toLowerCase() ? this.correctData.team1Wins : this.correctData.team2Wins     //makes sure 'team1' is always the top
+        this.team2Wins = this.team2 === this.correctData.team2.toLowerCase() ? this.correctData.team2Wins : this.correctData.team1Wins
         this.round = this.correctData.round
         this.games = this.correctData.gameScores
         this.winner = this.team1Wins === '4' ? seed1 : seed2
