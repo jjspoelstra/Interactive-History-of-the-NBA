@@ -1,4 +1,4 @@
-class Club {
+class Club {        //this is the team object.
     constructor(name, abbr){
         this.name = name
         this.abbr = abbr
@@ -6,20 +6,17 @@ class Club {
         this.statsSelector = document.querySelector(`#stats`)
         
     }
-    get conference(){
-        return this.data[0].conference
+    get conference(){   //
+        return this.data[0].conference          // this is defined as a getter so we can wait until we have to data to get this info
     }
     get seed(){
-        return this.data[0].seed
+        return this.data[0].seed                // same as above
     }
 
+    
     placeSeed(){
         document.querySelector(`.${this.conference}${this.seed}`).classList.add(`${this.abbr}`)
         document.querySelector(`.${this.conference}${this.seed}`).src = `img/${this.abbr}.png`
-    }
-
-    sortStats(){
-        
     }
 
     addSelectors(){
@@ -68,57 +65,11 @@ class Club {
 
 
 
-const pho = new Club('Phoenix Suns', 'pho')
-const nop = new Club('New Orleans Pelicans', 'nop')
-const dal = new Club('Dallas Mavericks', 'dal')
-const uta = new Club('Utah Jazz', 'uta')
-const mem = new Club('Memphis Grizzlies', 'mem')
-const min = new Club('Minnesota Timberwolves', 'min')
-const gsw = new Club('Golden State Warriors', 'gsw')
-const den = new Club('Denver Nuggets', 'den')
-const mia = new Club('Miami Heat', 'mia')
-const atl = new Club('Atlanta Hawks', 'atl')
-const phi = new Club('Philadelphia 76ers', 'phi')
-const tor = new Club('Toronto Raptors', 'tor')
-const bos = new Club('Boston Celtics', 'bos')
-const brk = new Club('Brooklyn Nets', 'brk')
-const mil = new Club('Milwaukee Bucks', 'mil')
-const chi = new Club('Chicago Bulls', 'chi')
-const cho = new Club('Charlotte Hornets', 'cho')
-const lac = new Club('Los Angeles Clippers', 'lac') 
-const sas = new Club('San Antonio Spurs', 'sas') 
-const lal = new Club('Los Angeles Lakers', 'lal') 
-const sac = new Club('Sacramento Kings', 'sac') 
-const por = new Club('Portland Trail Blazers', 'por') 
-const okc = new Club('Oklahoma City Thunder', 'okc') 
-const hou = new Club('Houston Rockets', 'hou') 
-const cle = new Club('Cleveland Cavaliers', 'cle')
-const nyk = new Club('New York Knicks', 'nyk')
-const was = new Club('Washington Wizards', 'was')
-const ind = new Club('Indiana Pacers', 'ind')
-const det = new Club('Detroit Pistons', 'det')
-const orl = new Club('Orlando Magic', 'orl')
-
-const teams = [pho, orl, nop, mia, atl, uta, dal, mem, min, gsw, den, phi, tor, bos, brk, mil, chi, cho, lac, sas, lal, sac, por, okc, hou, cle, nyk, was, ind, det]
-
-for (let i = 0; i < teams.length; i++) {
-    teams[i].getDataFetch()
-    setTimeout(() => {
-        teams[i].placeSeed()
-    }, 100);
-    setTimeout(() => {
-        teams[i].addSelectors()
-    }, 300);
-    
-}
-
-
-
 //advance playoffs       (season object? Not sure it makes sense to add to each team)
 
 document.querySelector('.advance').addEventListener('click', advance)
-
 let clicks = 0
+
 function advance(){
     clicks++
     if (clicks < 8){
@@ -144,24 +95,6 @@ function advance(){
 }
 
 
-
-let playoffData
-fetchPlayoffs = () => {
-    fetch(`data/2022/playoffs.json`)
-    .then((response) => response.json())
-    .then((json) => {
-        playoffData = json})
-    .then(() => {
-        console.log(playoffData)
-
-    })   
-}
-
-fetchPlayoffs()
-
-
-   
-
 class Matchup {
     constructor(name, seed1, seed2, conference){
         this.name = name
@@ -176,15 +109,16 @@ class Matchup {
         this.round = this.correctData[0].round
         this.games = this.correctData[0].gameScores
         this.winner = this.team1Wins === '4' ? seed1 : seed2
-        if (seed1 === "1st" && seed2 === '8th' || seed1 === "2nd" && seed2 === '7th' || seed1 === "3rd" && seed2 === '6th' || seed1 === "4th" && seed2 === '5th'){
-            if (this.team1Wins == 4){
-                document.querySelector(`.${conference}${seed1}${seed2}Winner`).classList.add(`${this.team1}`)
-                document.querySelector(`.${conference}${seed1}${seed2}Winner`).src = `img/${this.team1}.png`
+        if ((seed1 === '1st' && seed2 === '8th') || (seed1 === '2nd' && seed2 === '7th') || (seed1 === '3rd' && seed2 === '6th') || (seed1 === '4th' && seed2 === '5th')) {
+            const winnerElement = document.querySelector(`.${conference}${seed1}${seed2}Winner`);
+            if (this.team1Wins === '4') {
+              winnerElement.classList.add(this.team1);
+              winnerElement.src = `img/${this.team1}.png`;
             } else {
-                document.querySelector(`.${conference}${seed1}${seed2}Winner`).classList.add(`${this.team2}`)
-                document.querySelector(`.${conference}${seed1}${seed2}Winner`).src = `img/${this.team2}.png`
+              winnerElement.classList.add(this.team2);
+              winnerElement.src = `img/${this.team2}.png`;
             }
-        }
+          }
        
     }
     paintGames = () => {
@@ -247,7 +181,7 @@ class SecondRound extends Matchup {
 }
 
 class Finals{
-    constructor(name, seed1, seed2, conference, seedPotential){
+    constructor(name, seed1, seed2, conference){
         this.name = name
         this.conference = conference
         this.team1 = teams.filter(x => x.conference === `west` && x.seed === `${seed1}`)[0].abbr
@@ -279,16 +213,12 @@ class Finals{
                 team1Score = this.games[i].awayTeam.slice(-3).trim()
                 team2Score = this.games[i].homeTeam.slice(-3).trim()
             }
-        
-            
             let spanWest = document.createElement('span')
             spanWest.classList.add(`game${i}`, `hidden`, 'game')
             spanWest.innerHTML = '&#9654;' 
-            
             let spanEast = document.createElement('span')
             spanEast.classList.add(`game${i}`, `hidden`, 'game')
             spanEast.innerHTML = '&#9664;' 
-            
             if (+team1Score > +team2Score){
                 topSeedWins += 1
                 spanWest.classList.add(`${this.team1}Win`, `topSeedWin${topSeedWins}`)
@@ -297,7 +227,6 @@ class Finals{
                 tooltipWest.innerText = `Game ${i+1} ${team1Score} - ${team2Score}`
                 spanWest.append(tooltipWest)
                 document.querySelector(`.finals`).prepend(spanWest)
-
             } else {
                 lowSeedWins += 1
                 spanEast.classList.add(`${this.team2}Win`, `lowSeedWin${lowSeedWins}`)
@@ -311,8 +240,51 @@ class Finals{
     }
 }
 
-let westOneEight, eastOneEight, westFourFive, eastFourFive, westThreeSix, eastThreeSix, westTwoSeven, eastTwoSeven, westUpper, westLower, eastUpper, eastLower, eastFinals, westFinals, finals
+//create teams
+const pho = new Club('Phoenix Suns', 'pho')
+const nop = new Club('New Orleans Pelicans', 'nop')
+const dal = new Club('Dallas Mavericks', 'dal')
+const uta = new Club('Utah Jazz', 'uta')
+const mem = new Club('Memphis Grizzlies', 'mem')
+const min = new Club('Minnesota Timberwolves', 'min')
+const gsw = new Club('Golden State Warriors', 'gsw')
+const den = new Club('Denver Nuggets', 'den')
+const mia = new Club('Miami Heat', 'mia')
+const atl = new Club('Atlanta Hawks', 'atl')
+const phi = new Club('Philadelphia 76ers', 'phi')
+const tor = new Club('Toronto Raptors', 'tor')
+const bos = new Club('Boston Celtics', 'bos')
+const brk = new Club('Brooklyn Nets', 'brk')
+const mil = new Club('Milwaukee Bucks', 'mil')
+const chi = new Club('Chicago Bulls', 'chi')
+const cho = new Club('Charlotte Hornets', 'cho')
+const lac = new Club('Los Angeles Clippers', 'lac') 
+const sas = new Club('San Antonio Spurs', 'sas') 
+const lal = new Club('Los Angeles Lakers', 'lal') 
+const sac = new Club('Sacramento Kings', 'sac') 
+const por = new Club('Portland Trail Blazers', 'por') 
+const okc = new Club('Oklahoma City Thunder', 'okc') 
+const hou = new Club('Houston Rockets', 'hou') 
+const cle = new Club('Cleveland Cavaliers', 'cle')
+const nyk = new Club('New York Knicks', 'nyk')
+const was = new Club('Washington Wizards', 'was')
+const ind = new Club('Indiana Pacers', 'ind')
+const det = new Club('Detroit Pistons', 'det')
+const orl = new Club('Orlando Magic', 'orl')
 
+const teams = [pho, orl, nop, mia, atl, uta, dal, mem, min, gsw, den, phi, tor, bos, brk, mil, chi, cho, lac, sas, lal, sac, por, okc, hou, cle, nyk, was, ind, det]
+
+// function to initialize team data
+async function getDataAndPlaceSeed(team) {
+    await team.getDataFetch();  //wait for team data to finish
+    await new Promise(resolve => setTimeout(resolve, 50));  //set a timeout to allow it to load
+    team.placeSeed();           //give the team their correct seed on the bracket
+  }
+
+
+
+//specify which matchups to create
+let westOneEight, eastOneEight, westFourFive, eastFourFive, westThreeSix, eastThreeSix, westTwoSeven, eastTwoSeven, westUpper, westLower, eastUpper, eastLower, eastFinals, westFinals, finals
 function createMatchup(){
     westOneEight = new Matchup('westOneEight', '1st', '8th', 'west') 
     eastOneEight = new Matchup('eastOneEight', '1st', '8th', 'east')
@@ -331,35 +303,30 @@ function createMatchup(){
     finals = new Finals('finals', `${westFinals.winner}`, `${eastFinals.winner}`, 'finals', 'Champion')
 }
 
-
-const matchups = [westOneEight]
-
-setTimeout(() => {
-    createMatchup()
-    westOneEight.paintGames()
-    eastOneEight.paintGames()
-    westFourFive.paintGames()
-    westTwoSeven.paintGames()
-    eastFourFive.paintGames()
-    eastTwoSeven.paintGames()
-    westThreeSix.paintGames()
-    eastThreeSix.paintGames()
-    westUpper.paintGames()
-    westLower.paintGames()
-    eastUpper.paintGames()
-    eastLower.paintGames()
-    eastFinals.paintGames()
-    westFinals.paintGames()
-    finals.paintGames()
-}, 100);
+// function to initialize matchups
+function startTournament() {
+    createMatchup();        //create each matchup
+    const matchups = [westOneEight, eastOneEight, westFourFive, westTwoSeven, eastFourFive, eastTwoSeven, westThreeSix, eastThreeSix, westUpper, westLower, eastUpper, eastLower, eastFinals, westFinals, finals];  //an array of each match
+    matchups.forEach(matchup => matchup.paintGames()); // create each game of each matchup
+  }
 
 
-
-// for (let i = 0; i < matchups.length; i++) {
-//     setTimeout(() => {
-//         matchups[i].paintGames()
-//     }, 100);
- 
-// }
-
-
+//get the playoff data for page use
+  let playoffData
+  fetchPlayoffs = () => {
+      fetch(`data/2022/playoffs.json`)
+      .then((response) => response.json())
+      .then((json) => {
+          playoffData = json})
+      .then(() => {
+          console.log(playoffData)
+  
+      })   
+  }
+  fetchPlayoffs()
+  
+//run functions to create team data and playoff matchups
+  Promise.all(teams.map(team => getDataAndPlaceSeed(team)))     //run through each team and give them their seed. Make sure each team has finished
+    .then(() => startTournament())                              //then, initialize each matchup and paint their games
+    .then(() => teams.forEach(team => team.addSelectors()))
+    .catch(error => console.error(error));

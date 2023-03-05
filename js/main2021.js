@@ -349,11 +349,3 @@ setTimeout(() => {
 
 
 
-// for (let i = 0; i < matchups.length; i++) {
-//     setTimeout(() => {
-//         matchups[i].paintGames()
-//     }, 100);
- 
-// }
-
-
